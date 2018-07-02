@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { getCategoriesFromServer } from '../actions'
-import { Button, ButtonToolbar} from 'react-bootstrap'
+import { Button, ButtonToolbar } from 'react-bootstrap'
 
-class SmallHeader extends Component {
+class Categories extends Component {
   componentDidMount() {
     this.getCategories()
   }
@@ -23,10 +23,18 @@ class SmallHeader extends Component {
       <div>
         {this.props.shouldShow === true ? (
           <ButtonToolbar>
-            <Button bsSize="small" bsStyle="primary" onClick={() => this.selectCategory('/')}>Todas</Button>
+            <Button
+              bsSize="small"
+              onClick={() => this.selectCategory('/')}>
+              Todas
+            </Button>
             {
               categories.map(category => (
-                <Button bsSize="small" onClick={() => this.selectCategory(`/${category.path}`)}>{category.name}</Button>
+                <Button
+                  bsSize="small"
+                  onClick={() => this.selectCategory(`/${category.path}`)}>
+                  {category.name}
+                </Button>
               ))
             }
           </ButtonToolbar>
@@ -38,8 +46,7 @@ class SmallHeader extends Component {
   }
 }
 
-
 const mapStateToProps = ({ categories }) => ({ categories })
 const mapDispatchToProps = { getCategoriesFromServer }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SmallHeader))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Categories))

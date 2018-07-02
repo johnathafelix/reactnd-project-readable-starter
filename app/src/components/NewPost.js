@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { getPostFromServer } from '../actions/posts'
 import { getCategoriesFromServer } from '../actions'
-import { addServerPost } from '../utils/serverapi'
-import SmallHeader from './SmallHeader'
+import { addServerPost } from '../utils/apiUtils'
+import Categories from './Categories'
 import Uuid from 'uuid-lib'
 import { Button, ButtonGroup, Row, Col, Grid, PageHeader, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
 
@@ -64,7 +64,7 @@ class NewPost extends Component {
             <Col><PageHeader>Criar publicação</PageHeader></Col>
           </Row>
           <Row>
-            <Col><SmallHeader shouldShow={false} /></Col>
+            <Col><Categories shouldShow={false} /></Col>
           </Row>
           <Row className="container-fluid">
             <Col>

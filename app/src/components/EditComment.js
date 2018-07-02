@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import * as actions from '../actions/comments'
-import { editServerComment } from '../utils/serverapi'
+import { editServerComment } from '../utils/apiUtils'
 import { Button, ButtonGroup, Row, Col, Grid, PageHeader, Form, FormGroup, ControlLabel, FormControl, Panel, Badge } from 'react-bootstrap'
-
 
 class EditComment extends Component {
 

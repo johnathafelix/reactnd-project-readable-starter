@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { getCategoriesFromServer } from '../actions'
 import { PageHeader } from 'react-bootstrap'
-import SmallHeader from './SmallHeader'
+import Categories from './Categories'
 
 class Header extends Component {
   componentDidMount() {
@@ -29,7 +29,7 @@ class Header extends Component {
       <div>
         <PageHeader>Leitura</PageHeader>
         <h3>Filtro de Categorias</h3>
-        <SmallHeader shouldShow={true} />
+        <Categories shouldShow={true} />
       </div>
     )
   }

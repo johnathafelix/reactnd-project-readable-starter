@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import '../css/bootstrap.min.css'
 import { Button, Panel, Grid, Row, Col, Well, Badge } from 'react-bootstrap'
-import formatTimestamp from '../utils/formatTimestamp'
+import dateUtils from '../utils/dateUtils'
 import CommentCount from './CommentCount'
 
 class Posts extends Component {
@@ -25,7 +25,7 @@ class Posts extends Component {
                 </Row>
                 <Row className="container-fluid">
                   <Col>Autor: {post.author}</Col>
-                  <Col>Data: {formatTimestamp(post.timestamp)}</Col>
+                  <Col>Data: {dateUtils(post.timestamp)}</Col>
                   <Col>Categoria: {post.category}</Col>
                   <Col>Pontuação <Badge>{post.voteScore}</Badge></Col>
                 </Row>

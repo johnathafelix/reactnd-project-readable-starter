@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom"
 import { getPostFromServer, votePostOnServer, deletePostOnServer } from "../actions/posts"
 import { getCommentsFromServer } from "../actions/comments"
 import { getCategoriesFromServer } from "../actions"
-import { editServerPost } from "../utils/serverapi"
+import { editServerPost } from "../utils/apiUtils"
 import Comments from "../components/Comments"
 import { Button, ButtonGroup, Row, Col, Grid, PageHeader, Form, FormGroup, ControlLabel, FormControl, Panel, Badge } from "react-bootstrap"
 
@@ -64,7 +64,6 @@ class EditPost extends Component {
   onCancelClick() {
     this.props.history.push("/")
   }
-
 
   onTitleChange(e) {
     this.setState({ title: e.target.value })

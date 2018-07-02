@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { getCommentFromServer } from '../actions/comments'
-import { addServerComment } from '../utils/serverapi'
+import { addServerComment } from '../utils/apiUtils'
 import Uuid from 'uuid-lib'
 import { Button, Grid, Row, Col, PageHeader, Form, FormGroup, ControlLabel, FormControl, ButtonGroup } from 'react-bootstrap'
 

@@ -1,13 +1,5 @@
-import { getServerCategories } from '../utils/serverapi'
-
+import { getServerCategories } from '../utils/apiUtils'
 import * as ACTIONS from './types'
-
-
-
-export const getCategoriesFromServer = () => dispatch => (
-  getServerCategories().then(categories => dispatch(getCategories(categories))
-  )
-)
 
 function getCategories(categories) {
   return {
@@ -15,3 +7,8 @@ function getCategories(categories) {
     categories
   }
 }
+
+export const getCategoriesFromServer = () => dispatch => (
+  getServerCategories().then(categories => dispatch(getCategories(categories))
+  )
+)
