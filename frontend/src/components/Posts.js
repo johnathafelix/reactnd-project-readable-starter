@@ -18,7 +18,7 @@ class Posts extends Component {
         <h3>Publicações: {this.props.posts.length}</h3>
         <div>
           {this.props.posts.map(post => (
-            <Panel header={post.title}>
+            <Panel key={post.id} header={post.title}>
               <Grid>
                 <Row className="container-fluid">
                   <Col> <Well>{post.body}</Well></Col>

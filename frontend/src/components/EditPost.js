@@ -5,7 +5,8 @@ import { getPostFromServer, votePostOnServer, deletePostOnServer } from "../acti
 import { getCommentsFromServer } from "../actions/comments"
 import { getCategoriesFromServer } from "../actions"
 import { editServerPost } from "../utils/apiUtils"
-import Comments from "../components/Comments"
+import Comments from "./Comments"
+import Page404 from './Page404'
 import { Button, ButtonGroup, Row, Col, Grid, PageHeader, Form, FormGroup, ControlLabel, FormControl, Panel, Badge } from "react-bootstrap"
 
 class EditPost extends Component {
@@ -91,14 +92,7 @@ class EditPost extends Component {
     return (
       <div>
         {this.state.id === undefined ? (
-          <Grid>
-            <Row className="container-fluid">
-              <Col><PageHeader>Editar Publicação</PageHeader></Col>
-            </Row>
-            <Row >
-              <h1>Publicação não encontrada!</h1><br /><Button bsSize="small" bsStyle="primary" onClick={this.onCancelClick.bind(this)}>Go Back</Button>
-            </Row>
-          </Grid>
+          <Page404 />
         ) : (
             <Grid>
               <Row className="container-fluid">

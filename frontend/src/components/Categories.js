@@ -31,6 +31,7 @@ class Categories extends Component {
             {
               categories.map(category => (
                 <Button
+                  key={category.name}
                   bsSize="small"
                   onClick={() => this.selectCategory(`/${category.path}`)}>
                   {category.name}

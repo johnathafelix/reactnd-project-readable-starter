@@ -3,15 +3,13 @@ import { getServerComments } from '../utils/apiUtils'
 
 class CommentCount extends Component {
 
-  state = { count: 0 }
-
   render() {
-    getServerComments(this.props.postId).then((comments) => {
-      this.setState({ count: comments.length })
+    let comentarios = getServerComments(this.props.postId).then((comments) => {
+      return comments
     })
     return (
       <div>
-        Comentários: {this.state.count}
+        Comentários: {comentarios.length}
       </div>
     )
   }

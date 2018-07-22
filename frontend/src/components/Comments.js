@@ -16,7 +16,7 @@ class Comments extends Component {
         <h3>Comentários: {this.props.comments.length} </h3>
         <div>
           {this.props.comments.map(comment => (
-            <Panel header={comment.author}>
+            <Panel key={comment.id} header={comment.author}>
               <Grid>
                 <Row className="container-fluid">
                   <Col> {comment.body}</Col>
