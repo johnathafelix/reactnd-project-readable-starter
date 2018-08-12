@@ -1,10 +1,39 @@
-import comment from './comment'
-import comments from './comments'
-import categories from './categories'
-import post from './post'
-import posts from './posts'
-import { combineReducers } from 'redux'
+import {
+    GET_POSTS,
+    GET_COMMENTS,
+    GET_CATEGORIES
+} from '../actions'
 
-export default combineReducers({
-  categories, posts, comments, post, comment
-})
+const initialState = {
+    posts: null,
+    comments: null,
+    categories: null
+}
+
+function readableReducer(state = initialState, action) {
+    switch(action.type) {
+        case GET_POSTS:
+            console.log('reducer get posts')
+            let newState = {
+                ...state,
+                posts: action.posts
+            }
+            console.log('newState')
+            console.log(newState)
+            return newState
+        case GET_COMMENTS:
+            return {
+                ...state,
+                comments: action.comments
+            }
+        case GET_CATEGORIES:
+            return {
+                ...state,
+                categories: action.categories
+            }
+        default:
+            return state
+    }
+}
+
+export default readableReducer
