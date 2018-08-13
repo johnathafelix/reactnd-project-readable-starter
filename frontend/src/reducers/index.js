@@ -3,7 +3,8 @@ import {
   GET_COMMENTS,
   GET_CATEGORIES,
   UPVOTE_POST,
-  DOWNVOTE_POST
+  DOWNVOTE_POST,
+  GET_POSTS_BY_CATEGORY
 } from '../actions'
 
 const initialState = {
@@ -34,7 +35,7 @@ function readableReducer(state = initialState, action) {
         ...state,
         categories: action.categories
       }
-      
+
     case UPVOTE_POST:
       copyPosts = [...state.posts]
       currentPosts = copyPosts.map((post) => {
@@ -62,6 +63,12 @@ function readableReducer(state = initialState, action) {
         ...state,
         posts: currentPosts,
       }
+
+      case GET_POSTS_BY_CATEGORY:
+        return {
+          ...state,
+          posts: action.posts
+        }
 
     default:
       return state

@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
-import {PageHeader,Button, ButtonToolbar } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { PageHeader, Button, ButtonToolbar } from 'react-bootstrap';
+import { getPostsByCategory, getPostsFromServer } from '../actions'
 
 class Categories extends Component {
+
+  selectCategory(category) {
+    this.props.history.push(`/${category.path}`)
+  }
+
+  goToHomePage() {
+    this.props.history.push('/')
+  }
 
   render() {
     let categories = this.props.categories
@@ -12,8 +23,9 @@ class Categories extends Component {
         <div>
           <ButtonToolbar>
             <Button
+              key='Todas'
               bsSize="small"
-              onClick={() => this.selectCategory('/')}>
+              onClick={() => this.goToHomePage()}>
               Todas
             </Button>
             {
@@ -21,7 +33,7 @@ class Categories extends Component {
                 <Button
                   key={category.name}
                   bsSize="small"
-                  onClick={() => this.selectCategory(`/${category.path}`)}>
+                  onClick={() => {this.selectCategory(category)}}>
                   {category.name}
                 </Button>
               ))
@@ -33,4 +45,16 @@ class Categories extends Component {
   }
 }
 
-export default Categories;
+function mapStateToProps({ categories }) {
+  return { categories }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    atualizaPostsCategoria: (category) => dispatch(getPostsByCategory(category)),
+    atualizaPosts: () => dispatch(getPostsFromServer()),
+  }
+}
+
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Categories));

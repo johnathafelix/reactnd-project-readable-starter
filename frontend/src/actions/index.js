@@ -1,11 +1,13 @@
-import { 
-  getServerPosts, 
-  getServerCategories, 
-  getServerComments, 
-  voteServerPost 
+import {
+  getServerPosts,
+  getServerCategories,
+  getServerComments,
+  voteServerPost,
+  getServerPostsByCategory
 } from '../services'
 
 export const GET_POSTS = 'GET_POSTS'
+export const GET_POSTS_BY_CATEGORY = 'GET_POSTS_BY_CATEGORY'
 export const GET_COMMENTS = 'GET_COMMENTS'
 export const GET_CATEGORIES = 'GET_CATEGORIES'
 export const UPVOTE_POST = 'UPVOTE_POST'
@@ -48,6 +50,14 @@ export function downVotePost(post) {
   }
 }
 
+export function getPostsByCategory(category, posts) {
+  return {
+    type: GET_POSTS_BY_CATEGORY,
+    category,
+    posts,
+  }
+}
+
 export const getPostsFromServer = () => dispatch => (
   getServerPosts().then(posts => dispatch(getPosts(posts))
   )
@@ -69,4 +79,9 @@ export const upVotePostOnServer = (post, option) => dispatch => (
 
 export const downVotePostOnServer = (post, option) => dispatch => (
   voteServerPost(post.id, option).then(() => dispatch(downVotePost(post)))
+)
+
+export const getPostsByCategoryFromServer = (category) => dispatch => (
+  getServerPostsByCategory(category).then(posts => dispatch(getPostsByCategory(category, posts))
+  )
 )

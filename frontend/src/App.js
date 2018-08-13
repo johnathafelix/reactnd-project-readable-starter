@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
 import './css/bootstrap.min.css';
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom';
-import { Navbar, Grid, Row, Col } from 'react-bootstrap';
-import { getPostsFromServer, getCategoriesFromServer, getCommentsFromServer } from './actions'
-import Categories from './components/Categories'
-import Controls from './components/Controls'
-import Posts from './components/Posts'
+import { Navbar } from 'react-bootstrap';
+import { Route, Switch, Link } from 'react-router-dom'
+import HomePage from './components/HomePage'
+
 
 class App extends Component {
-
-  componentDidMount() {
-    this.props.atualizaPosts()
-    this.props.atualizaComentarios()
-    this.props.atualizaCategorias()
-  }
 
   render() {
     return (
@@ -26,32 +17,18 @@ class App extends Component {
             </Navbar.Brand>
           </Navbar.Header>
         </Navbar>
-        <Grid>
-          <Row className="container-fluid">
-            <Categories categories={this.props.categories}/>
-          </Row>
-          <Row className="container-fluid">
-            <Col>
-              <Controls />
-              <Posts />
-            </Col>
-          </Row>
-        </Grid>
+        <Switch>
+          <Route exact path='/' component={HomePage} />
+          {/* <Route exact path='/new' component={NewPost} /> */}
+          {/* <Route exact path='/newComment' component={NewComment} /> */}
+          {/* <Route exact path='/comments/:commentId' component={EditComment} /> */}
+          <Route exact path='/:category' component={HomePage} />
+          {/* <Route exact path='/:category/:postId' component={EditPost} /> */}
+          {/* <Route component={Page404} /> */}
+        </Switch>
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
-  return state
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    atualizaPosts: () => dispatch(getPostsFromServer()),
-    atualizaComentarios: () => dispatch(getCommentsFromServer()),
-    atualizaCategorias: () => dispatch(getCategoriesFromServer()),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

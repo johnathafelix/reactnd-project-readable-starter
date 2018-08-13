@@ -16,12 +16,12 @@ const middleware = applyMiddleware(thunk, createLogger())
 const store = createStore(readableReducer, composeWithDevTools(middleware))
 
 ReactDOM.render(
-    <Provider store={store}>
-      <BrowserRouter>
-        <App /> 
-      </BrowserRouter>
-     </Provider>,
-    document.getElementById('root')
-  );
-  
-  registerServiceWorker();
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
+);
+
+registerServiceWorker();
