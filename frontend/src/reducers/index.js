@@ -4,7 +4,10 @@ import {
   GET_CATEGORIES,
   UPVOTE_POST,
   DOWNVOTE_POST,
-  GET_POSTS_BY_CATEGORY
+  GET_POSTS_BY_CATEGORY,
+  ORDER_POSTS_BY_TITLE,
+  ORDER_POSTS_BY_SCORE,
+  ORDER_POSTS_BY_TIMESTAMP
 } from '../actions'
 
 const initialState = {
@@ -44,7 +47,6 @@ function readableReducer(state = initialState, action) {
         }
         return post
       })
-
       return {
         ...state,
         posts: currentPosts,
@@ -58,7 +60,6 @@ function readableReducer(state = initialState, action) {
         }
         return post
       })
-
       return {
         ...state,
         posts: currentPosts,
@@ -70,6 +71,29 @@ function readableReducer(state = initialState, action) {
           posts: action.posts
         }
 
+      case ORDER_POSTS_BY_TITLE:
+        copyPosts = [...state.posts]
+        currentPosts = copyPosts
+        return {
+          ...state,
+          posts: currentPosts
+        }
+
+        case ORDER_POSTS_BY_SCORE:
+        copyPosts = [...state.posts]
+        currentPosts = copyPosts
+        return {
+          ...state,
+          posts: currentPosts
+        }
+
+        case ORDER_POSTS_BY_TIMESTAMP:
+        copyPosts = [...state.posts]
+        currentPosts = copyPosts
+        return {
+          ...state,
+          posts: currentPosts
+        }
     default:
       return state
   }

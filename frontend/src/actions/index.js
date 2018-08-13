@@ -12,6 +12,9 @@ export const GET_COMMENTS = 'GET_COMMENTS'
 export const GET_CATEGORIES = 'GET_CATEGORIES'
 export const UPVOTE_POST = 'UPVOTE_POST'
 export const DOWNVOTE_POST = 'DOWNVOTE_POST'
+export const ORDER_POSTS_BY_TITLE = 'ORDER_POSTS_BY_TITLE'
+export const ORDER_POSTS_BY_SCORE = 'ORDER_POSTS_BY_SCORE'
+export const ORDER_POSTS_BY_TIMESTAMP = 'ORDER_POSTS_BY_TIMESTAMP'
 
 export function getPosts(posts) {
   return {
@@ -58,6 +61,27 @@ export function getPostsByCategory(category, posts) {
   }
 }
 
+export function orderPostsByTitle(option) {
+  return {
+    type: ORDER_POSTS_BY_TITLE,
+    option,
+  }
+}
+
+export function orderPostsByScore(option) {
+  return {
+    type: ORDER_POSTS_BY_SCORE,
+    option,
+  }
+}
+
+export function orderPostsByTimeStamp(option) {
+  return {
+    type: ORDER_POSTS_BY_TIMESTAMP,
+    option,
+  }
+}
+
 export const getPostsFromServer = () => dispatch => (
   getServerPosts().then(posts => dispatch(getPosts(posts))
   )
@@ -85,3 +109,9 @@ export const getPostsByCategoryFromServer = (category) => dispatch => (
   getServerPostsByCategory(category).then(posts => dispatch(getPostsByCategory(category, posts))
   )
 )
+
+export const orderByTitle = () => ({})
+
+export const orderByScore = () => ({})
+
+export const orderByTimeStamp = () => ({})
