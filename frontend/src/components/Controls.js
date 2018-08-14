@@ -2,15 +2,20 @@ import React, { Component } from 'react'
 import { Button, ButtonToolbar } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { orderPostsByTitle, orderPostsByScore, orderPostsByTimeStamp } from '../actions'
-
+import { withRouter } from 'react-router-dom'
 
 class Controls extends Component {
+
+  createPost() {
+    this.props.history.push('/new')
+  }
+
   render() {
     return (
       <div>
         <h3>Ações</h3>
         <ButtonToolbar>
-          <Button bsSize="small" bsStyle="primary" onClick={this.addPost}>Criar publicação</Button>
+          <Button bsSize="small" bsStyle="primary" onClick={() => this.createPost()}>Criar publicação</Button>
           <Button bsSize="small" onClick={() => this.props.ordernaTitulo(this.props.posts, 'asc')}>Ordenar por título</Button>
           <Button bsSize="small" onClick={() => this.props.ordenaDataDecrescente(this.props.posts, 'desc')}>Ordenar pelas mais recentes</Button>
           <Button bsSize="small" onClick={() => this.props.odernaDataCrescente(this.props.posts, 'asc')}>Ordenas pelas mais antigas</Button>
@@ -36,4 +41,4 @@ function mapStateToProps({ posts }) {
   return { posts }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Controls)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Controls))

@@ -7,7 +7,8 @@ import {
   getServerPost,
   editServerPost,
   deleteServerPost,
-  voteServerComment
+  voteServerComment,
+  addServerPost
 } from '../services'
 
 export const GET_POSTS = 'GET_POSTS'
@@ -24,6 +25,7 @@ export const UPDATE_POST = 'UPDATE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const UPVOTE_COMMENT = 'UPVOTE_COMMENT'
 export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT'
+export const ADD_POST = 'ADD_POST'
 
 export function getPosts(posts) {
   return {
@@ -155,6 +157,13 @@ export function downvoteComment(comment) {
   }
 }
 
+export function addPost(post) {
+  return {
+    type: ADD_POST,
+    post,
+  }
+}
+
 export const getPostsFromServer = () => dispatch => (
   getServerPosts().then(posts => dispatch(getPosts(posts))
   )
@@ -205,5 +214,10 @@ export const upvoteCommentOnServer = (comment, option) => dispatch => (
 
 export const downvoteCommentOnServer = (comment, option) => dispatch => (
   voteServerComment(comment.id, option).then(() => dispatch(downvoteComment(comment))
+  )
+)
+
+export const addPostOnServer = (post) => dispatch => (
+  addServerPost(post).then(post => dispatch(addPost(post))
   )
 )

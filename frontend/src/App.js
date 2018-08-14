@@ -5,6 +5,7 @@ import { Route, Switch, Link } from 'react-router-dom'
 import HomePage from './components/HomePage'
 import EditPost from './components/EditPost'
 import Page404 from './components/Page404'
+import NewPost from './components/NewPost'
 
 class App extends Component {
 
@@ -20,7 +21,7 @@ class App extends Component {
         </Navbar>
         <Switch>
           <Route exact path='/' component={HomePage} />
-          {/* <Route exact path='/new' component={NewPost} /> */}
+          <Route exact path='/new' component={NewPost} />
           {/* <Route exact path='/newComment' component={NewComment} /> */}
           {/* <Route exact path='/comments/:commentId' component={EditComment} /> */}
           <Route exact path='/:category' component={HomePage} />
