@@ -4,7 +4,10 @@ import {
   getServerComments,
   voteServerPost,
   getServerPostsByCategory,
-  getServerPost
+  getServerPost,
+  editServerPost,
+  deleteServerPost,
+  voteServerComment
 } from '../services'
 
 export const GET_POSTS = 'GET_POSTS'
@@ -17,6 +20,10 @@ export const ORDER_POSTS_BY_TITLE = 'ORDER_POSTS_BY_TITLE'
 export const ORDER_POSTS_BY_SCORE = 'ORDER_POSTS_BY_SCORE'
 export const ORDER_POSTS_BY_TIMESTAMP = 'ORDER_POSTS_BY_TIMESTAMP'
 export const GET_POST = 'GET_POST'
+export const UPDATE_POST = 'UPDATE_POST'
+export const DELETE_POST = 'DELETE_POST'
+export const UPVOTE_COMMENT = 'UPVOTE_COMMENT'
+export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT'
 
 export function getPosts(posts) {
   return {
@@ -63,12 +70,26 @@ export function getPostsByCategory(category, posts) {
   }
 }
 
+export function updatePost(post) {
+  return {
+    type: UPDATE_POST,
+    post,
+  }
+}
+
+export function deletePost(post) {
+  return {
+    type: DELETE_POST,
+    post,
+  }
+}
+
 export function orderPostsByTitle(posts, option) {
   let orderedPosts = posts.sort((a, b) => {
     return (a.title < b.title ? -1 : a.title > b.title ? 1 : 0)
   })
 
-  if(option === 'desc') {
+  if (option === 'desc') {
     orderedPosts = orderedPosts.reverse()
   }
 
@@ -84,7 +105,7 @@ export function orderPostsByScore(posts, option) {
     return (a.voteScore < b.voteScore ? -1 : a.voteScore > b.voteScore ? 1 : 0)
   })
 
-  if(option === 'desc') {
+  if (option === 'desc') {
     orderedPosts = orderedPosts.reverse()
   }
 
@@ -100,7 +121,7 @@ export function orderPostsByTimeStamp(posts, option) {
     return (a.timestamp < b.timestamp ? -1 : a.timestamp > b.timestamp ? 1 : 0)
   })
 
-  if(option === 'desc') {
+  if (option === 'desc') {
     orderedPosts = orderedPosts.reverse()
   }
 
@@ -118,13 +139,29 @@ export function getPost(post) {
   }
 }
 
+export function upvoteComment(comment) {
+  return {
+    type: UPVOTE_COMMENT,
+    comment,
+    option: 'upVote'
+  }
+}
+
+export function downvoteComment(comment) {
+  return {
+    type: DOWNVOTE_COMMENT,
+    comment,
+    option: 'downVote'
+  }
+}
+
 export const getPostsFromServer = () => dispatch => (
   getServerPosts().then(posts => dispatch(getPosts(posts))
   )
 )
 
-export const getCommentsFromServer = () => dispatch => (
-  getServerComments().then(comments => dispatch(getComments(comments))
+export const getCommentsFromServer = (postId) => dispatch => (
+  getServerComments(postId).then(comments => dispatch(getComments(comments))
   )
 )
 
@@ -148,5 +185,25 @@ export const getPostsByCategoryFromServer = (category) => dispatch => (
 
 export const getPostFromServer = (postId) => dispatch => (
   getServerPost(postId).then(post => dispatch(getPost(post))
+  )
+)
+
+export const updatePostOnServer = (post) => dispatch => (
+  editServerPost(post.id, post).then(post => dispatch(updatePost(post))
+  )
+)
+
+export const deletePostOnServer = (postId) => dispatch => (
+  deleteServerPost(postId).then(post => dispatch(deletePost(post))
+  )
+)
+
+export const upvoteCommentOnServer = (comment, option) => dispatch => (
+  voteServerComment(comment.id, option).then(() => dispatch(upvoteComment(comment))
+  )
+)
+
+export const downvoteCommentOnServer = (comment, option) => dispatch => (
+  voteServerComment(comment.id, option).then(() => dispatch(downvoteComment(comment))
   )
 )

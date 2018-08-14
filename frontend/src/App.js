@@ -4,6 +4,7 @@ import { Navbar } from 'react-bootstrap';
 import { Route, Switch, Link } from 'react-router-dom'
 import HomePage from './components/HomePage'
 import EditPost from './components/EditPost'
+import Page404 from './components/Page404'
 
 class App extends Component {
 
@@ -24,7 +25,7 @@ class App extends Component {
           {/* <Route exact path='/comments/:commentId' component={EditComment} /> */}
           <Route exact path='/:category' component={HomePage} />
           <Route exact path='/:category/:postId' component={EditPost} />
-          {/* <Route component={Page404} /> */}
+          <Route component={Page404} />
         </Switch>
       </div>
     )

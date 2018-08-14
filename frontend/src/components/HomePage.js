@@ -6,14 +6,13 @@ import { connect } from 'react-redux'
 import '../css/bootstrap.min.css'
 import { Grid, Row, Col } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'
-import { getPostsFromServer, getCategoriesFromServer, getCommentsFromServer, getPostsByCategoryFromServer } from '../actions'
+import { getPostsFromServer, getCategoriesFromServer, getPostsByCategoryFromServer } from '../actions'
 
 
 class HomePage extends Component {
 
   componentDidMount() {
     this.props.atualizaPosts()
-    this.props.atualizaComentarios()
     this.props.atualizaCategorias()
   }
 
@@ -54,7 +53,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     atualizaPosts: () => dispatch(getPostsFromServer()),
-    atualizaComentarios: () => dispatch(getCommentsFromServer()),
     atualizaCategorias: () => dispatch(getCategoriesFromServer()),
     atualizaPostsCategoria: (category) => dispatch(getPostsByCategoryFromServer(category)),
   }

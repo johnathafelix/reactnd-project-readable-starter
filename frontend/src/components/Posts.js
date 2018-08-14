@@ -27,7 +27,7 @@ class Posts extends Component {
                   <Col>Pontuação <Badge>{post.voteScore}</Badge></Col>
                 </Row>
                 <Row className="container-fluid">
-                  Número de comentários
+                  Número de comentários: {post.commentCount}
                 </Row>
                 <Row className="container-fluid">
                   <Col>
