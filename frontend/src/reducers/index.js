@@ -14,6 +14,9 @@ import {
   UPVOTE_COMMENT,
   DOWNVOTE_COMMENT,
   ADD_POST,
+  GET_COMMENT,
+  UPDATE_COMMENT,
+  DELETE_COMMENT,
 } from '../actions'
 
 const initialState = {
@@ -146,6 +149,22 @@ function readableReducer(state = initialState, action) {
       }
 
     case ADD_POST:
+      return {
+        ...state,
+      }
+
+    case GET_COMMENT:
+      return {
+        ...state,
+        comments: [action.comments]
+      }
+
+    case UPDATE_COMMENT:
+      return {
+        ...state,
+      }
+
+    case DELETE_COMMENT:
       return {
         ...state,
       }

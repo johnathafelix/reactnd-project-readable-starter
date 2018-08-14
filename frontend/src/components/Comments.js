@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Panel, Grid, Row, Col, Badge } from 'react-bootstrap'
 import { getCommentsFromServer, upvoteCommentOnServer, downvoteCommentOnServer } from '../actions'
+import { withRouter } from 'react-router-dom'
 
 class Comments extends Component {
 
@@ -45,6 +46,10 @@ class Comments extends Component {
     this.props.downvote(c)
   }
 
+  goToCommentEdit(comment) {
+    this.props.history.push(`/comments/${comment.id}`)
+  }
+
   render() {
     return (
       <div>
@@ -65,7 +70,7 @@ class Comments extends Component {
                     <Button bsSize="small" onClick={() => { this.onDownvoteComment(comment) }}><i className="glyphicon glyphicon-thumbs-down"></i></Button>
                   </Col>
                   <Col>
-                    <Button bsSize="small" bsStyle="primary" onClick={() => { }}><i className="glyphicon glyphicon-pencil"></i> Editar </Button>
+                    <Button bsSize="small" bsStyle="primary" onClick={() => this.goToCommentEdit(comment)}><i className="glyphicon glyphicon-pencil"></i> Editar </Button>
                   </Col>
                 </Row>
               </Grid>
@@ -89,4 +94,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comments)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Comments))

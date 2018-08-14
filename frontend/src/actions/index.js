@@ -8,7 +8,10 @@ import {
   editServerPost,
   deleteServerPost,
   voteServerComment,
-  addServerPost
+  addServerPost,
+  deleteServerComment,
+  editServerComment,
+  getServerComment,
 } from '../services'
 
 export const GET_POSTS = 'GET_POSTS'
@@ -26,6 +29,9 @@ export const DELETE_POST = 'DELETE_POST'
 export const UPVOTE_COMMENT = 'UPVOTE_COMMENT'
 export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT'
 export const ADD_POST = 'ADD_POST'
+export const GET_COMMENT = 'GET_COMMENT'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const UPDATE_COMMENT = 'UPDATE_COMMENT'
 
 export function getPosts(posts) {
   return {
@@ -164,6 +170,27 @@ export function addPost(post) {
   }
 }
 
+export function getComment(comment) {
+  return {
+    type: GET_COMMENT,
+    comment,
+  }
+}
+
+export function deleteComment(comment) {
+  return {
+    type: DELETE_COMMENT,
+    comment,
+  }
+}
+
+export function updateComment(comment) {
+  return {
+    type: UPDATE_COMMENT,
+    comment,
+  }
+}
+
 export const getPostsFromServer = () => dispatch => (
   getServerPosts().then(posts => dispatch(getPosts(posts))
   )
@@ -219,5 +246,20 @@ export const downvoteCommentOnServer = (comment, option) => dispatch => (
 
 export const addPostOnServer = (post) => dispatch => (
   addServerPost(post).then(post => dispatch(addPost(post))
+  )
+)
+
+export const getCommentFromServer = (commentId) => dispatch => (
+  getServerComment(commentId).then(comment => dispatch(getComment(comment))
+  )
+)
+
+export const editCommentOnServer = (commentId, comment) => dispatch => (
+  editServerComment(commentId, comment).then(comment => dispatch(updateComment(comment))
+  )
+)
+
+export const deleteCommentOnServer = (commentId) => dispatch => (
+  deleteServerComment(commentId).then(comment => dispatch(deleteComment(comment))
   )
 )
