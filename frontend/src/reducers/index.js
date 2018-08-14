@@ -7,7 +7,8 @@ import {
   GET_POSTS_BY_CATEGORY,
   ORDER_POSTS_BY_TITLE,
   ORDER_POSTS_BY_SCORE,
-  ORDER_POSTS_BY_TIMESTAMP
+  ORDER_POSTS_BY_TIMESTAMP,
+  GET_POST
 } from '../actions'
 
 const initialState = {
@@ -80,20 +81,27 @@ function readableReducer(state = initialState, action) {
         }
 
         case ORDER_POSTS_BY_SCORE:
-        copyPosts = [...state.posts]
-        currentPosts = copyPosts
-        return {
-          ...state,
-          posts: currentPosts
-        }
+          copyPosts = [...state.posts]
+          currentPosts = copyPosts
+          return {
+            ...state,
+            posts: currentPosts
+          }
 
         case ORDER_POSTS_BY_TIMESTAMP:
-        copyPosts = [...state.posts]
-        currentPosts = copyPosts
-        return {
-          ...state,
-          posts: currentPosts
-        }
+          copyPosts = [...state.posts]
+          currentPosts = copyPosts
+          return {
+            ...state,
+            posts: currentPosts
+          }
+
+        case GET_POST:
+          return {
+            ...state,
+            posts: [action.post]
+          }
+
     default:
       return state
   }

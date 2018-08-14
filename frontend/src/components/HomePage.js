@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Categories from './Categories'
 import Controls from './Controls'
 import Posts from './Posts'
 import { connect } from 'react-redux'
-import '../css/bootstrap.min.css';
-import { Grid, Row, Col } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
+import '../css/bootstrap.min.css'
+import { Grid, Row, Col } from 'react-bootstrap'
+import { withRouter } from 'react-router-dom'
 import { getPostsFromServer, getCategoriesFromServer, getCommentsFromServer, getPostsByCategoryFromServer } from '../actions'
 
 

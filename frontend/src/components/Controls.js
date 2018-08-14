@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button, ButtonToolbar } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { orderPostsByTitle, orderPostsByScore, orderPostsByTimeStamp } from '../actions'
 
 
 class Controls extends Component {
@@ -10,32 +11,29 @@ class Controls extends Component {
         <h3>Ações</h3>
         <ButtonToolbar>
           <Button bsSize="small" bsStyle="primary" onClick={this.addPost}>Criar publicação</Button>
-          <Button bsSize="small" onClick={() => ordena(this.props.posts)}>Ordenar por título</Button>
-          <Button bsSize="small" onClick={() => this.props.sortPosts('timestamp', 'desc')}>Ordenar pelas mais recentes</Button>
-          <Button bsSize="small" onClick={() => this.props.sortPosts('timestamp', 'asc')}>Ordenas pelas mais antigas</Button>
-          <Button bsSize="small" onClick={() => this.props.sortPosts('voteScore', 'asc')}>Ordenas pelas menos votadas</Button>
-          <Button bsSize="small" onClick={() => this.props.sortPosts('voteScore', 'desc')}>Ordenas pelas mais votadas</Button>
+          <Button bsSize="small" onClick={() => this.props.ordernaTitulo(this.props.posts, 'asc')}>Ordenar por título</Button>
+          <Button bsSize="small" onClick={() => this.props.ordenaDataDecrescente(this.props.posts, 'desc')}>Ordenar pelas mais recentes</Button>
+          <Button bsSize="small" onClick={() => this.props.odernaDataCrescente(this.props.posts, 'asc')}>Ordenas pelas mais antigas</Button>
+          <Button bsSize="small" onClick={() => this.props.ordenaPontuacaoDecrescente(this.props.posts, 'desc')}>Ordenas pelas mais votadas</Button>
+          <Button bsSize="small" onClick={() => this.props.ordenaPontuacaoCrescente(this.props.posts, 'asc')}>Ordenas pelas menos votadas</Button>
         </ButtonToolbar>
       </div>
     )
   }
 }
 
-function ordena(posts) {
-  let o = posts.sort(compare)
-  console.log('o', o)
-  return o
-}
-
-function compare(a, b) {
-  return (a.title < b.title ? -1 : a.title > b.title ? 1 : 0)
-  // if (a.title < b.title) return -1
-  // if (a.title > b.title) return 1
-  // return 0
+function mapDispatchToProps(dispatch) {
+  return {
+    ordernaTitulo: (posts, option) => dispatch(orderPostsByTitle(posts, option)),
+    odernaDataCrescente: (posts, option) => dispatch(orderPostsByTimeStamp(posts, option)),
+    ordenaDataDecrescente: (posts, option) => dispatch(orderPostsByTimeStamp(posts, option)),
+    ordenaPontuacaoCrescente: (posts, option) => dispatch(orderPostsByScore(posts, option)),
+    ordenaPontuacaoDecrescente: (posts, option) => dispatch(orderPostsByScore(posts, option)),
+  }
 }
 
 function mapStateToProps({ posts }) {
   return { posts }
 }
 
-export default connect(mapStateToProps)(Controls)
+export default connect(mapStateToProps, mapDispatchToProps)(Controls)

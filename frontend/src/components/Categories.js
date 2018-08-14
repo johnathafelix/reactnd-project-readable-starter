@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PageHeader, Button, ButtonToolbar } from 'react-bootstrap';
-import { getPostsByCategory, getPostsFromServer } from '../actions'
 
 class Categories extends Component {
 
@@ -15,7 +14,6 @@ class Categories extends Component {
   }
 
   render() {
-    let categories = this.props.categories
     return (
       <div>
         <PageHeader>Leitura</PageHeader>
@@ -29,7 +27,7 @@ class Categories extends Component {
               Todas
             </Button>
             {
-              categories.map(category => (
+              this.props.categories.map(category => (
                 <Button
                   key={category.name}
                   bsSize="small"
@@ -49,12 +47,5 @@ function mapStateToProps({ categories }) {
   return { categories }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    atualizaPostsCategoria: (category) => dispatch(getPostsByCategory(category)),
-    atualizaPosts: () => dispatch(getPostsFromServer()),
-  }
-}
 
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Categories));
+export default withRouter(connect(mapStateToProps)(Categories));

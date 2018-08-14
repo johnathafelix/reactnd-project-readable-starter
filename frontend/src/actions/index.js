@@ -3,7 +3,8 @@ import {
   getServerCategories,
   getServerComments,
   voteServerPost,
-  getServerPostsByCategory
+  getServerPostsByCategory,
+  getServerPost
 } from '../services'
 
 export const GET_POSTS = 'GET_POSTS'
@@ -15,6 +16,7 @@ export const DOWNVOTE_POST = 'DOWNVOTE_POST'
 export const ORDER_POSTS_BY_TITLE = 'ORDER_POSTS_BY_TITLE'
 export const ORDER_POSTS_BY_SCORE = 'ORDER_POSTS_BY_SCORE'
 export const ORDER_POSTS_BY_TIMESTAMP = 'ORDER_POSTS_BY_TIMESTAMP'
+export const GET_POST = 'GET_POST'
 
 export function getPosts(posts) {
   return {
@@ -61,24 +63,58 @@ export function getPostsByCategory(category, posts) {
   }
 }
 
-export function orderPostsByTitle(option) {
+export function orderPostsByTitle(posts, option) {
+  let orderedPosts = posts.sort((a, b) => {
+    return (a.title < b.title ? -1 : a.title > b.title ? 1 : 0)
+  })
+
+  if(option === 'desc') {
+    orderedPosts = orderedPosts.reverse()
+  }
+
   return {
     type: ORDER_POSTS_BY_TITLE,
     option,
+    orderedPosts,
   }
 }
 
-export function orderPostsByScore(option) {
+export function orderPostsByScore(posts, option) {
+  let orderedPosts = posts.sort((a, b) => {
+    return (a.voteScore < b.voteScore ? -1 : a.voteScore > b.voteScore ? 1 : 0)
+  })
+
+  if(option === 'desc') {
+    orderedPosts = orderedPosts.reverse()
+  }
+
   return {
     type: ORDER_POSTS_BY_SCORE,
     option,
+    orderedPosts,
   }
 }
 
-export function orderPostsByTimeStamp(option) {
+export function orderPostsByTimeStamp(posts, option) {
+  let orderedPosts = posts.sort((a, b) => {
+    return (a.timestamp < b.timestamp ? -1 : a.timestamp > b.timestamp ? 1 : 0)
+  })
+
+  if(option === 'desc') {
+    orderedPosts = orderedPosts.reverse()
+  }
+
   return {
     type: ORDER_POSTS_BY_TIMESTAMP,
     option,
+    orderedPosts,
+  }
+}
+
+export function getPost(post) {
+  return {
+    type: GET_POST,
+    post,
   }
 }
 
@@ -110,8 +146,7 @@ export const getPostsByCategoryFromServer = (category) => dispatch => (
   )
 )
 
-export const orderByTitle = () => ({})
-
-export const orderByScore = () => ({})
-
-export const orderByTimeStamp = () => ({})
+export const getPostFromServer = (postId) => dispatch => (
+  getServerPost(postId).then(post => dispatch(getPost(post))
+  )
+)

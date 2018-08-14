@@ -2,8 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Panel, Grid, Row, Col, Well, Badge } from 'react-bootstrap'
 import { upVotePostOnServer, downVotePostOnServer } from '../actions'
+import { withRouter } from 'react-router-dom'
 
 class Posts extends Component {
+  editPost(post) {
+    this.props.history.push(`/${post.category}/${post.id}`)
+  }
+
   render() {
     return (
       <div>
@@ -17,7 +22,7 @@ class Posts extends Component {
                 </Row>
                 <Row className="container-fluid">
                   <Col>Autor: {post.author}</Col>
-                  <Col>Data: {post.timestamp}</Col>
+                  <Col>Data: {new Date(post.timestamp).toLocaleString('pt-BR')}</Col>
                   <Col>Categoria: {post.category}</Col>
                   <Col>Pontuação <Badge>{post.voteScore}</Badge></Col>
                 </Row>
@@ -30,7 +35,7 @@ class Posts extends Component {
                     <Button bsSize="small" onClick={() => { this.props.downVote(post) }}><i className="glyphicon glyphicon-thumbs-down"></i></Button>
                   </Col>
                   <Col>
-                    <Button bsSize="small" bsStyle="primary" onClick={() => {}}><i className="glyphicon glyphicon-pencil"></i> Editar </Button>
+                    <Button bsSize="small" bsStyle="primary" onClick={() => {this.editPost(post)}}><i className="glyphicon glyphicon-pencil"></i> Editar </Button>
                   </Col>
                 </Row>
               </Grid>
@@ -54,4 +59,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Posts)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Posts))
