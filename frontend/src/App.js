@@ -7,6 +7,7 @@ import EditPost from './components/EditPost'
 import Page404 from './components/Page404'
 import NewPost from './components/NewPost'
 import EditComment from './components/EditComment'
+import NewComment from './components/NewComment'
 
 class App extends Component {
 
@@ -23,7 +24,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route exact path='/new' component={NewPost} />
-          {/* <Route exact path='/newComment' component={NewComment} /> */}
+          <Route exact path='/posts/:postId/newComment' component={NewComment} />
           <Route exact path='/comments/:commentId' component={EditComment} />
           <Route exact path='/:category' component={HomePage} />
           <Route exact path='/:category/:postId' component={EditPost} />

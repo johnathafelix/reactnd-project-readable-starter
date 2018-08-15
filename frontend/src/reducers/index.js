@@ -17,6 +17,7 @@ import {
   GET_COMMENT,
   UPDATE_COMMENT,
   DELETE_COMMENT,
+  ADD_COMMENT
 } from '../actions'
 
 const initialState = {
@@ -165,6 +166,11 @@ function readableReducer(state = initialState, action) {
       }
 
     case DELETE_COMMENT:
+      return {
+        ...state,
+      }
+
+    case ADD_COMMENT:
       return {
         ...state,
       }

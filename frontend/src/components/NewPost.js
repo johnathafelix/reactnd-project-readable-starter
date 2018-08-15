@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { PageHeader, Form, FormGroup, ControlLabel, FormControl, Button, ButtonGroup, Grid, Row, Col } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getCategoriesFromServer, addPostOnServer, getPostsFromServer } from '../actions'
+import { getCategoriesFromServer, addPostOnServer } from '../actions'
 import Uuid from 'uuid-lib'
 
 class NewPost extends Component {
@@ -114,7 +114,6 @@ function mapStateToProps({categories}) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    atualizaPosts: () => dispatch(getPostsFromServer()),
     atualizaCategorias: () => dispatch(getCategoriesFromServer()),
     criaPost: (post) => dispatch(addPostOnServer(post)),
   }

@@ -12,6 +12,7 @@ import {
   deleteServerComment,
   editServerComment,
   getServerComment,
+  addServerComment,
 } from '../services'
 
 export const GET_POSTS = 'GET_POSTS'
@@ -32,6 +33,7 @@ export const ADD_POST = 'ADD_POST'
 export const GET_COMMENT = 'GET_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const UPDATE_COMMENT = 'UPDATE_COMMENT'
+export const ADD_COMMENT = 'ADD_COMMENT'
 
 export function getPosts(posts) {
   return {
@@ -191,6 +193,13 @@ export function updateComment(comment) {
   }
 }
 
+export function addComment(comment) {
+  return {
+    type: ADD_COMMENT,
+    comment,
+  }
+}
+
 export const getPostsFromServer = () => dispatch => (
   getServerPosts().then(posts => dispatch(getPosts(posts))
   )
@@ -261,5 +270,10 @@ export const editCommentOnServer = (commentId, comment) => dispatch => (
 
 export const deleteCommentOnServer = (commentId) => dispatch => (
   deleteServerComment(commentId).then(comment => dispatch(deleteComment(comment))
+  )
+)
+
+export const addCommentOnServer = (comment) => dispatch => (
+  addServerComment(comment).then(comment => dispatch(addComment(comment))
   )
 )

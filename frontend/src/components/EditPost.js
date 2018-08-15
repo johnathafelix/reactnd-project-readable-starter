@@ -70,6 +70,10 @@ class EditPost extends Component {
     this.goToHomePage()
   }
 
+  goToPostCreation() {
+    this.props.history.push(`/posts/${this.state.id}/newComment`)
+  }
+
   pegaPost() {
     if (this.props.posts[0]) {
       this.setState({
@@ -124,13 +128,13 @@ class EditPost extends Component {
                 <Button bsSize="small" bsStyle="success" onClick={() => { this.onSavePost() }}><i className="glyphicon glyphicon-floppy-save"></i> Salvar </Button>
                 <Button bsSize="small" bsStyle="warning" onClick={() => { this.goToHomePage() }}><i className="glyphicon glyphicon-remove"></i> Cancelar </Button>
                 <Button bsSize="small" bsStyle="danger" onClick={() => { this.onDeletePost() }}><i className="glyphicon glyphicon-trash"></i> Apagar Publicação </Button>
-                <Button bsSize="small" bsStyle="primary" onClick={() => { }}><i className="glyphicon glyphicon-plus"></i> Adicionar Comentário </Button>
+                <Button bsSize="small" bsStyle="primary" onClick={() => { this.goToPostCreation() }}><i className="glyphicon glyphicon-plus"></i> Adicionar Comentário </Button>
               </ButtonGroup>
             </Col>
           </Row>
           <Row>
             <Col>
-              {(this.state.id !== '') && <Comments postId={this.state.id}/>}
+              {(this.state.id !== '') && <Comments postId={this.state.id} />}
             </Col>
           </Row>
         </Grid>
