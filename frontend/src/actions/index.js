@@ -87,10 +87,10 @@ export function updatePost(post) {
   }
 }
 
-export function deletePost(post) {
+export function deletePost(postId) {
   return {
     type: DELETE_POST,
-    post,
+    postId,
   }
 }
 
@@ -239,7 +239,7 @@ export const updatePostOnServer = (post) => dispatch => (
 )
 
 export const deletePostOnServer = (postId) => dispatch => (
-  deleteServerPost(postId).then(post => dispatch(deletePost(post))
+  deleteServerPost(postId).then(() => dispatch(deletePost(postId))
   )
 )
 

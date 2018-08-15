@@ -1,20 +1,39 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Panel, Grid, Row, Col, Well, Badge } from 'react-bootstrap'
-import { upVotePostOnServer, downVotePostOnServer } from '../actions'
+import { upVotePostOnServer, downVotePostOnServer, deletePostOnServer, getPostFromServer } from '../actions'
 import { withRouter } from 'react-router-dom'
 
 class Posts extends Component {
+  state = null
+
+  componentDidUpdate() {
+    if (!this.state) {
+      this.setState({...this.state, posts: [this.props.posts]})
+    }
+  }
+
   editPost(post) {
     this.props.history.push(`/${post.category}/${post.id}`)
   }
 
+  goToHomePage() {
+    this.props.history.push('/')
+  }
+
+  onDeletePost(deletedPost) {
+    this.props.delete(deletedPost)
+  }
+
   render() {
+    let posts = this.props.posts.filter((post) => {
+      return !post.deleted
+    })
     return (
       <div>
-        <h3>Publicações: {this.props.posts.length}</h3>
+        <h3>Publicações: {posts.length}</h3>
         <div>
-          {this.props.posts.map(post => (
+          {posts.map(post => (
             <Panel key={post.id} header={post.title}>
               <Grid>
                 <Row className="container-fluid">
@@ -35,7 +54,8 @@ class Posts extends Component {
                     <Button bsSize="small" onClick={() => { this.props.downVote(post) }}><i className="glyphicon glyphicon-thumbs-down"></i></Button>
                   </Col>
                   <Col>
-                    <Button bsSize="small" bsStyle="primary" onClick={() => {this.editPost(post)}}><i className="glyphicon glyphicon-pencil"></i> Editar </Button>
+                    <Button bsSize="small" bsStyle="primary" onClick={() => { this.editPost(post) }}><i className="glyphicon glyphicon-pencil"></i> Editar </Button>
+                    <Button bsSize="small" bsStyle="danger" onClick={() => { this.onDeletePost(post) }}><i className="glyphicon glyphicon-trash"></i> Apagar Publicação </Button>
                   </Col>
                 </Row>
               </Grid>
@@ -55,7 +75,9 @@ function mapStateToProps({ posts }) {
 function mapDispatchToProps(dispatch) {
   return {
     upVote: (post) => dispatch(upVotePostOnServer(post, 'upVote')),
-    downVote: (post) => dispatch(downVotePostOnServer(post, 'downVote'))
+    downVote: (post) => dispatch(downVotePostOnServer(post, 'downVote')),
+    delete: (post) => dispatch(deletePostOnServer(post.id)),
+    atualizaPosts: () => dispatch(getPostFromServer())
   }
 }
 

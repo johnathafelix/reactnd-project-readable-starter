@@ -34,9 +34,16 @@ function readableReducer(state = initialState, action) {
 
   switch (action.type) {
     case GET_POSTS:
+      copyPosts = [...action.posts]
+      currentPosts = copyPosts.map((post) => {
+        if (!post.deleted) {
+          return post
+        }
+        return 
+      })
       return {
         ...state,
-        posts: action.posts
+        posts: currentPosts
       }
 
     case GET_COMMENTS:
@@ -108,6 +115,7 @@ function readableReducer(state = initialState, action) {
       }
 
     case GET_POST:
+      console.log('get post', action)
       return {
         ...state,
         posts: [action.post]
@@ -119,8 +127,16 @@ function readableReducer(state = initialState, action) {
       }
 
     case DELETE_POST:
+      copyPosts = [...state.posts]
+      currentPosts = copyPosts.map((post) => {
+        if (post.id === action.postId) {
+          return {...post, deleted: true}
+        }
+        return post
+      })
       return {
         ...state,
+        posts: currentPosts
       }
 
     case UPVOTE_COMMENT:
