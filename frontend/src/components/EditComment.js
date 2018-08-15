@@ -23,6 +23,10 @@ class EditComment extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.pegaComentario(this.props.match.params.commentId).then(() => this.pegaComentario())
+  }
+
   pegaComentario() {
     if(this.props.comments[0]) {
       this.setState({
@@ -36,12 +40,6 @@ class EditComment extends Component {
         parentDeleted: this.props.comments[0].parentDeleted
       })
     }
-    console.log('pega', this.state)
-  }
-
-  componentDidMount() {
-    console.log('didMount')
-    this.props.pegaComentario(this.props.match.params.commentId).then(() => this.pegaComentario())
   }
 
   goBackToPost() {
@@ -56,28 +54,31 @@ class EditComment extends Component {
     this.setState({body: e.target.value})
   }
 
-  onUpvoteComment() {
+  onUpvoteComment(comment) {
     this.setState({
       voteScore: this.state.voteScore + 1
     })
+    this.props.upvote(comment)
   }
 
-  onDownvoteComment() {
+  onDownvoteComment(comment) {
     this.setState({
       voteScore: this.state.voteScore -1
     })
+    this.props.downvote(comment)
   }
 
   onUpdateComment() {
-
+    this.props.update(this.state)
+    this.goBackToPost()
   }
 
   onDeleteComment() {
-
+    this.props.delete(this.state)
+    this.goBackToPost()
   }
 
   render() {
-    console.log('render', this.state)
     return (
       <div>
         <Grid>
@@ -101,8 +102,8 @@ class EditComment extends Component {
               </Form>
               <Panel header="Votação">
                 Pontuação <Badge>{this.state.voteScore}</Badge>
-                <Button bsSize="small" onClick={() => this.onUpvoteComment()}><i className="glyphicon glyphicon-thumbs-up"></i></Button>
-                <Button bsSize="small" onClick={() => this.onDownvoteComment()}><i className="glyphicon glyphicon-thumbs-down"></i></Button>
+                <Button bsSize="small" onClick={() => this.onUpvoteComment(this.state)}><i className="glyphicon glyphicon-thumbs-up"></i></Button>
+                <Button bsSize="small" onClick={() => this.onDownvoteComment(this.state)}><i className="glyphicon glyphicon-thumbs-down"></i></Button>
               </Panel>
               <ButtonGroup>
                 <Button bsSize="small" bsStyle="success" onClick={() => this.onUpdateComment()}><i className="glyphicon glyphicon-floppy-save"></i> Salvar </Button>
@@ -118,7 +119,6 @@ class EditComment extends Component {
 }
 
 function mapStateToProps({comments}) {
-  console.log('props', {comments})
   return {comments}
 }
 
@@ -127,8 +127,8 @@ function mapDispatchToProps(dispatch) {
     upvote: (comment) => dispatch(upvoteCommentOnServer(comment, 'upVote')),
     downvote: (comment) => dispatch(downvoteCommentOnServer(comment, 'downVote')),
     pegaComentario: (commentId) => dispatch(getCommentFromServer(commentId)),
-    update: (comment) => dispatch(editCommentOnServer(comment)),
-    delete: (comment) => dispatch(deleteCommentOnServer(comment)),
+    update: (comment) => dispatch(editCommentOnServer(comment.id, comment)),
+    delete: (comment) => dispatch(deleteCommentOnServer(comment.id)),
   }
 }
 

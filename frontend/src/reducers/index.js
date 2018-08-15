@@ -132,7 +132,7 @@ function readableReducer(state = initialState, action) {
       })
       return {
         ...state,
-        posts: currentComments,
+        comments: currentComments,
       }
 
     case DOWNVOTE_COMMENT:
@@ -145,7 +145,7 @@ function readableReducer(state = initialState, action) {
       })
       return {
         ...state,
-        posts: currentComments,
+        comments: currentComments,
       }
 
     case ADD_POST:
@@ -156,7 +156,7 @@ function readableReducer(state = initialState, action) {
     case GET_COMMENT:
       return {
         ...state,
-        comments: [action.comments]
+        comments: [action.comment]
       }
 
     case UPDATE_COMMENT:
