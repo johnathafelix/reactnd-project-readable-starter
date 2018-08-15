@@ -35,12 +35,7 @@ function readableReducer(state = initialState, action) {
   switch (action.type) {
     case GET_POSTS:
       copyPosts = [...action.posts]
-      currentPosts = copyPosts.map((post) => {
-        if (!post.deleted) {
-          return post
-        }
-        return 
-      })
+      currentPosts = copyPosts.filter(post => !post.deleted)
       return {
         ...state,
         posts: currentPosts
@@ -59,10 +54,12 @@ function readableReducer(state = initialState, action) {
       }
 
     case UPVOTE_POST:
-      copyPosts = [...state.posts]
-      currentPosts = copyPosts.map((post) => {
+      currentPosts = state.posts.map((post) => {
         if (action.post.id === post.id) {
-          post.voteScore = post.voteScore + 1
+          return {
+            ...post,
+            voteScore: post.voteScore + 1
+          }
         }
         return post
       })
@@ -72,10 +69,12 @@ function readableReducer(state = initialState, action) {
       }
 
     case DOWNVOTE_POST:
-      copyPosts = [...state.posts]
-      currentPosts = copyPosts.map((post) => {
+      currentPosts = state.posts.map((post) => {
         if (action.post.id === post.id) {
-          post.voteScore = post.voteScore - 1
+          return {
+            ...post,
+            voteScore: post.voteScore + 1
+          }
         }
         return post
       })
@@ -143,7 +142,10 @@ function readableReducer(state = initialState, action) {
       copyComments = [...state.comments]
       currentComments = copyComments.map((comment) => {
         if (action.comment.id === comment.id) {
-          comment.voteScore = comment.voteScore + 1
+          return {
+            ...comment,
+            voteScore: comment.voteScore + 1
+          }
         }
         return comment
       })
@@ -156,7 +158,10 @@ function readableReducer(state = initialState, action) {
       copyComments = [...state.comments]
       currentComments = copyComments.map((comment) => {
         if (action.comment.id === comment.id) {
-          comment.voteScore = comment.voteScore - 1
+          return {
+            ...comment,
+            voteScore: comment.voteScore - 1
+          }
         }
         return comment
       })

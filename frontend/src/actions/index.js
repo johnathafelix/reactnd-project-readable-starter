@@ -95,7 +95,7 @@ export function deletePost(postId) {
 }
 
 export function orderPostsByTitle(posts, option) {
-  let orderedPosts = posts.sort((a, b) => {
+  let orderedPosts = [...posts].sort((a, b) => {
     return (a.title < b.title ? -1 : a.title > b.title ? 1 : 0)
   })
 
@@ -111,7 +111,7 @@ export function orderPostsByTitle(posts, option) {
 }
 
 export function orderPostsByScore(posts, option) {
-  let orderedPosts = posts.sort((a, b) => {
+  let orderedPosts = [...posts].sort((a, b) => {
     return (a.voteScore < b.voteScore ? -1 : a.voteScore > b.voteScore ? 1 : 0)
   })
 
@@ -127,7 +127,7 @@ export function orderPostsByScore(posts, option) {
 }
 
 export function orderPostsByTimeStamp(posts, option) {
-  let orderedPosts = posts.sort((a, b) => {
+  let orderedPosts = [...posts].sort((a, b) => {
     return (a.timestamp < b.timestamp ? -1 : a.timestamp > b.timestamp ? 1 : 0)
   })
 
