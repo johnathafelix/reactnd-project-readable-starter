@@ -73,7 +73,7 @@ function readableReducer(state = initialState, action) {
         if (action.post.id === post.id) {
           return {
             ...post,
-            voteScore: post.voteScore + 1
+            voteScore: post.voteScore - 1
           }
         }
         return post
@@ -90,27 +90,21 @@ function readableReducer(state = initialState, action) {
       }
 
     case ORDER_POSTS_BY_TITLE:
-      copyPosts = [...state.posts]
-      currentPosts = copyPosts
       return {
         ...state,
-        posts: currentPosts
+        posts: action.orderedPosts,
       }
 
     case ORDER_POSTS_BY_SCORE:
-      copyPosts = [...state.posts]
-      currentPosts = copyPosts
       return {
         ...state,
-        posts: currentPosts
+        posts: action.orderedPosts,
       }
 
     case ORDER_POSTS_BY_TIMESTAMP:
-      copyPosts = [...state.posts]
-      currentPosts = copyPosts
       return {
         ...state,
-        posts: currentPosts
+        posts: action.orderedPosts,
       }
 
     case GET_POST:
